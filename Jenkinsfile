@@ -10,6 +10,11 @@ git 'https://github.com/Cj250mills/java-project.git'
 sh 'ant -f build.xml -v'
 }
 
+stage('Deploy'){
+  sh 'aws s3 cp /workspace/java-pipeline/dist/rectangle-${BUILD_NUMBER}.jar s3://cjassignment10bucket'
+}
+    
+
 stage('Report') {
 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding',
                   accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: '46e4c83d-f72e-46a0-bb36-6ede15737739', 
